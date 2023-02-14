@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="bootstrap.css">
+    </head>
+
+
+    <style>
+    </style>
+    <title>
+        CrudCrud
+    </title>
+
+    <body style="background-color: dimgray;">
+        <section class="container my-20 bg-dark w-50 text-light p-2" style="margin-top:60px; padding-bottom: 200px;">
+            <form class="row g-3" onsubmit="saveUserToCrudCrud(event)">
+
+                <div class="col-12">
+                    <label for="name" class="form-label">Name</label> 
+                    <input type="text" class="form-control" id="name" >
+                  </div>
+                  
+                <div class="col-12">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" >
+                </div>
+                
+                <div class="col-12">
+                  <label for="number" class="form-label">Phone</label>
+                  <input type="text" class="form-control" id="number" >
+                </div>
+                
+                <div class="col-12 text-center mt-4" >
+                  <button type="submit" class="btn btn-primary float-" >Book a call</button>
+                </div>
+              </form>
+              <br> <br>
+              <h2 style="text-align:center; padding-bottom: 80px; text-decoration: underline;">Appointments</h2>
+              <div class="listo" id="list">
+
+              </div>
+        </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+
+<script src="frontend.js"></script>
+</body>
+</html>
