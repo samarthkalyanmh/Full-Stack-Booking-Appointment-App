@@ -1,10 +1,18 @@
 window.addEventListener('DOMContentLoaded', () => {
-    
+    axios.get('http://localhost:4/get-all-users')
+    .then(res => {
+        console.log(res.data)
+        for(let i=0; i<res.data.length; i++){
+            showUserOnScreen(res.data[i])
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 function saveUserToCrudCrud(e){
     e.preventDefault()
-    // console.log('Hi')
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
@@ -19,15 +27,12 @@ function saveUserToCrudCrud(e){
 
     axios.post('http://localhost:4/add-user', obj)
     .then(res => {
-        // console.log( res.config.data )
 
-        const user = res.config.data
-        console.log(user)
+        showUserOnScreen(res.data)
 
-        showUserOnScreen(user)
-        document.getElementById('name').value = ''
-        document.getElementById('email').value = ''
-        document.getElementById('number').value = ''
+        // document.getElementById('name').value = ''
+        // document.getElementById('email').value = ''
+        // document.getElementById('number').value = ''
         
     })
     .catch(err => {
@@ -39,6 +44,7 @@ function saveUserToCrudCrud(e){
 
 async function showUserOnScreen(user){
     
+    console.log(user)
     try{
         let userLi = `<li id='${user.id}'>${user.name}-${user.email}-${user.number}
         <button onclick=deleteUser('${user.id}') class="delete-buttons">Delete Order</button>
@@ -54,11 +60,17 @@ async function showUserOnScreen(user){
 
 function deleteUser(id){
 
-    // axios.delete(`http://localhost:4/delete-user/${id}`, obj)
-    // .then(res => {
+    axios.delete(`http://localhost:4/delete-user/${id}`)
+    .then(res => {
+        removeUserFromUi(id)
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
 
-    // })
-    // .catch(err => {
-    //     console.log(err)
-    // })
+function removeUserFromUi(id){
+    let elemToRemove = document.getElementById(`${id}`)
+    let parDiv = elemToRemove.parentElement
+    parDiv.removeChild(elemToRemove)
 }

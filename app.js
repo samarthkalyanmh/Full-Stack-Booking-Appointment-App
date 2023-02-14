@@ -5,6 +5,10 @@ const sequelize = require('./util/database');
 
 const cors = require('cors')
 
+// const { JSON } = require('sequelize');
+// const { json } = require('body-parser');
+// const { resolve4 } = require('dns');
+
 const app = express()
 const User = require('./model/user-model');
 
@@ -23,7 +27,7 @@ app.post('/add-user', async (req, res, next) => {
     const email = req.body.email
     const number = req.body.number
 
-    console.log(req.body)
+    // console.log(req.body)
     
     try{
         const data = await User.create({
@@ -31,23 +35,26 @@ app.post('/add-user', async (req, res, next) => {
                                     email: email,
                                     number: number
                                 })
-                                .then(res => {
-                                    console.log('response from database', res)
-                                })
-                                .catch(err => {
-                                    console.log(err)
-                                })
 
-        res.status(201).json({addedUserDetails: data})
 
+                    // res.status(201).json({addedUserDetails: data})
+                        res.json(data)
+        
     } catch(err) {
         console.log('Error is ', err)
     }
     
 })
+app.get('/get-all-users', async (req, res, next) => {
+    const allUsers = await User.findAll()
+    res.json(allUsers)
+})
 
-app.delete('/delete-user/:id', () => {
-    
+
+app.delete('/delete-user/:id', async (req, res, next) => {
+    const uid = req.params.id
+    await User.destroy({where: {id: uid}})
+    res.sendStatus(200)
 })
 
 app.listen(4)
