@@ -13,9 +13,9 @@ sequelize.sync()
 .then()
 .catch()
 
+const getAllUsersRoute = require('./Routes/getAllUsers-route')
 const addUserRoute = require('./Routes/addUser-route')
 const deleteUserRoute = require('./Routes/deleteUser-route')
-const getAllUsersRoute = require('./Routes/getAllUsers-route')
 
 app.use(getAllUsersRoute)
 app.use(addUserRoute)
