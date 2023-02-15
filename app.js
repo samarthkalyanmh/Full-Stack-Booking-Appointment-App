@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const sequelize = require('./util/database');
-
 const cors = require('cors')
 
 // const { JSON } = require('sequelize');
@@ -10,7 +8,7 @@ const cors = require('cors')
 // const { resolve4 } = require('dns');
 
 const app = express()
-const User = require('./model/user-model');
+const User = require('./model/user-model');  
 
 app.use(cors())
 
@@ -20,41 +18,19 @@ sequelize.sync()
 .then()
 .catch()
 
-app.post('/add-user', async (req, res, next) => {
-    // console.log(req.body)
+const addUserRoute = require('./Routes/add-user-route')
+const deleteUserRoute = require('./Routes/delete-user')
+const getAllUsersRoute = require('./Routes/get-all-users')
 
-    const name = req.body.name
-    const email = req.body.email
-    const number = req.body.number
+app.get(getAllUsersRoute)
 
-    // console.log(req.body)
-    
-    try{
-        const data = await User.create({
-                                    name: name,
-                                    email: email,
-                                    number: number
-                                })
+// app.get('/get-all-users', async (req, res, next) => {
+//     // const allUsers = await User.findAll()
+//     // res.json(allUsers)
+//     console.log('hitting here')
+// })
 
-
-                    // res.status(201).json({addedUserDetails: data})
-                        res.json(data)
-        
-    } catch(err) {
-        console.log('Error is ', err)
-    }
-    
-})
-app.get('/get-all-users', async (req, res, next) => {
-    const allUsers = await User.findAll()
-    res.json(allUsers)
-})
-
-
-app.delete('/delete-user/:id', async (req, res, next) => {
-    const uid = req.params.id
-    await User.destroy({where: {id: uid}})
-    res.sendStatus(200)
-})
+app.post(addUserRoute)
+app.delete(deleteUserRoute)
 
 app.listen(4)

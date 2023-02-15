@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 })
 
-function saveUserToCrudCrud(e){
+function saveUserToDatabase(e){
     e.preventDefault()
 
     const name = document.getElementById('name').value;
@@ -30,9 +30,9 @@ function saveUserToCrudCrud(e){
 
         showUserOnScreen(res.data)
 
-        // document.getElementById('name').value = ''
-        // document.getElementById('email').value = ''
-        // document.getElementById('number').value = ''
+        document.getElementById('name').value = ''
+        document.getElementById('email').value = ''
+        document.getElementById('number').value = ''
         
     })
     .catch(err => {
