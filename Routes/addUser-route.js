@@ -1,6 +1,7 @@
 const express = require('express')
-
+const User = require('../Model/user-model');
 const router = express.Router()
+const sequelize = require('../util/database');
 
 router.post('/add-user', async (req, res, next) => {
     // console.log(req.body)
@@ -30,4 +31,4 @@ router.post('/add-user', async (req, res, next) => {
     
 })
 
-exports = router
+module.exports = router

@@ -3,12 +3,7 @@ const bodyParser = require('body-parser');
 const sequelize = require('./util/database');
 const cors = require('cors')
 
-// const { JSON } = require('sequelize');
-// const { json } = require('body-parser');
-// const { resolve4 } = require('dns');
-
-const app = express()
-const User = require('./model/user-model');  
+const app = express()  
 
 app.use(cors())
 
@@ -18,19 +13,12 @@ sequelize.sync()
 .then()
 .catch()
 
-const addUserRoute = require('./Routes/add-user-route')
-const deleteUserRoute = require('./Routes/delete-user')
-const getAllUsersRoute = require('./Routes/get-all-users')
+const addUserRoute = require('./Routes/addUser-route')
+const deleteUserRoute = require('./Routes/deleteUser-route')
+const getAllUsersRoute = require('./Routes/getAllUsers-route')
 
-app.get(getAllUsersRoute)
-
-// app.get('/get-all-users', async (req, res, next) => {
-//     // const allUsers = await User.findAll()
-//     // res.json(allUsers)
-//     console.log('hitting here')
-// })
-
-app.post(addUserRoute)
-app.delete(deleteUserRoute)
+app.use(getAllUsersRoute)
+app.use(addUserRoute)
+app.use(deleteUserRoute)
 
 app.listen(4)
